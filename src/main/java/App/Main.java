@@ -15,9 +15,12 @@ public class Main {
         
         MongoCollection userCol = db.getCollection("user");
         
-        Document sampleDoc = new Document("_id","1").append("userName", "ngphat");
-        sampleDoc.append("password","301002");
         
-        userCol.insertOne(sampleDoc);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
     }
 }
