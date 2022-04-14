@@ -19,7 +19,7 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainFrame().setVisible(true);
+                new LoginFrame().setVisible(true);
             }
         });
     }
