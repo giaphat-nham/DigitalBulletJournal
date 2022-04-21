@@ -4,15 +4,23 @@
  */
 package App;
 
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import javax.swing.JOptionPane;
+import org.bson.Document;
+
 /**
  *
  * @author DLCH
  */
 public class LoginFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainFrame
-     */
+    MongoClient client = MongoClients.create("mongodb+srv://ngphat:301002@cluster0.8fmtc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+
+    MongoDatabase db = client.getDatabase("DigitalBulletJournal");
     public LoginFrame() {
         initComponents();
     }
@@ -51,7 +59,6 @@ public class LoginFrame extends javax.swing.JFrame {
 
         loginPanel.setBackground(new java.awt.Color(0, 204, 204));
 
-        loginLabel.setBackground(null);
         loginLabel.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
         loginLabel.setForeground(new java.awt.Color(255, 255, 255));
         loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -100,6 +107,7 @@ public class LoginFrame extends javax.swing.JFrame {
         switchToRegisterButton.setForeground(new java.awt.Color(255, 255, 255));
         switchToRegisterButton.setText("Register");
         switchToRegisterButton.setBorder(null);
+        switchToRegisterButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         switchToRegisterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 switchToRegisterButtonActionPerformed(evt);
@@ -157,7 +165,6 @@ public class LoginFrame extends javax.swing.JFrame {
         registerUsernameInput.setForeground(new java.awt.Color(0, 0, 0));
         registerUsernameInput.setBorder(null);
 
-        registerUsernameLabel.setBackground(null);
         registerUsernameLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         registerUsernameLabel.setForeground(new java.awt.Color(255, 255, 255));
         registerUsernameLabel.setLabelFor(registerUsernameInput);
@@ -167,7 +174,6 @@ public class LoginFrame extends javax.swing.JFrame {
         registerPasswordInput.setForeground(new java.awt.Color(0, 0, 0));
         registerPasswordInput.setBorder(null);
 
-        registerPasswordLabel.setBackground(null);
         registerPasswordLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         registerPasswordLabel.setForeground(new java.awt.Color(255, 255, 255));
         registerPasswordLabel.setLabelFor(registerPasswordInput);
@@ -183,7 +189,6 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
-        registerPasswordConfirmLabel.setBackground(null);
         registerPasswordConfirmLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         registerPasswordConfirmLabel.setForeground(new java.awt.Color(255, 255, 255));
         registerPasswordConfirmLabel.setLabelFor(registerPasswordConfirmInput);
@@ -194,6 +199,7 @@ public class LoginFrame extends javax.swing.JFrame {
         registerConfirmButton.setForeground(new java.awt.Color(255, 255, 255));
         registerConfirmButton.setText("Confirm");
         registerConfirmButton.setBorder(null);
+        registerConfirmButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerConfirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerConfirmButtonActionPerformed(evt);
@@ -205,6 +211,7 @@ public class LoginFrame extends javax.swing.JFrame {
         switchToLoginButton.setForeground(new java.awt.Color(255, 255, 255));
         switchToLoginButton.setText("Back to login");
         switchToLoginButton.setBorder(null);
+        switchToLoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         switchToLoginButton.setFocusPainted(false);
         switchToLoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,14 +287,113 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_registerPasswordConfirmInputActionPerformed
 
+    //Nut xac nhan dang ky
     private void registerConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerConfirmButtonActionPerformed
         if (evt.getSource()==registerConfirmButton) {
-            registerPanel.setVisible(false);
+            String username;
+            String password;
+            String passwordConfirm;
+            
+            //Input khong duoc de trong
+            if (!"".equals(registerUsernameInput.getText())
+                    && !"".equals(String.valueOf(registerPasswordInput.getPassword()))
+                    && !"".equals(String.valueOf(registerPasswordConfirmInput.getPassword()))) {
+                username = registerUsernameInput.getText(); //Lay username duoc input
+                password = String.valueOf(registerPasswordInput.getPassword());  //Lay password duoc input
+                passwordConfirm = String.valueOf(registerPasswordConfirmInput.getPassword());
+                
+                //Kiem tra tai khoan da duoc tao hay chưa
+                MongoCollection userCollection = db.getCollection("user");
+                FindIterable<Document> createdUsers = userCollection.find();
+                boolean usernameExists = false; //co hieu
+                
+                for (Document document : createdUsers){
+                    if (username.equals(document.get("username"))){
+                        usernameExists = true;
+                        break;
+                    }
+                }
+                //Neu tai khoan da ton tai thi thong bao
+                if (usernameExists){
+                    JOptionPane.showMessageDialog(null, "This username is already existed.", "Invalid input", JOptionPane.INFORMATION_MESSAGE);
+                }
+                //Kiem tra password va password confirmation va thong bao
+                else if (!password.equals(passwordConfirm)){
+                    JOptionPane.showMessageDialog(null, "Password and password confirmation do not match.", "Invalid input", JOptionPane.INFORMATION_MESSAGE);
+                }
+                //Luu tai khoan moi vao database
+                else {
+                    Document newUserInfo = new Document("username",username) // tao document de luu vao collection
+                                                        .append("password",password);
+                    userCollection.insertOne(newUserInfo);
+                    registerUsernameInput.setText("");
+                    registerPasswordInput.setText("");
+                    registerPasswordConfirmInput.setText("");
+                    JOptionPane.showMessageDialog(null, "Your account has been successfully created", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            //Thong bao username va password khong duoc trong
+            else {
+                JOptionPane.showMessageDialog(null,"Username and password can't be blank.","Invalid input",JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_registerConfirmButtonActionPerformed
 
+    //Nut xac nhan dang nhap
     private void loginConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginConfirmButtonActionPerformed
-        // TODO add your handling code here:
+        if (evt.getSource()==loginConfirmButton){
+            MongoCollection userCollection = db.getCollection("user");
+            FindIterable<Document> createdUsers = userCollection.find();
+            
+            String username;
+            String password;
+            
+            //Kiem tra xem thong itn dang nhap co trong hay khong
+            if (!"".equals(loginUsernameInput.getText())&&!"".equals(loginPasswordInput.getText())){
+                username = loginUsernameInput.getText(); //Lay username da input
+                password = String.valueOf(loginPasswordInput.getPassword()); //Lay password da input
+                boolean usernameExists = false; //Co hieu
+                
+                //Kiem tra username co ton tai hay khong
+                for (Document document : createdUsers) {
+                    if (username.equals(document.get("username"))) {
+                        usernameExists = true;
+                        break;
+                    }
+                }
+                
+                //Neu username ton tai thi tiep tuc kiem tra password
+                if (usernameExists) {
+                    FindIterable<Document> usersInfo = userCollection.find(new Document("username",username));
+                    boolean passwordIsCorrect = false;
+                    
+                    //Kiem tra password co dung hay khong
+                    for (Document document : usersInfo) {
+                        if (password.equals(document.get("password"))){
+                            passwordIsCorrect = true;
+                            break;
+                        }
+                    }
+                    
+                    //Neu password dung thi dang nhap
+                    if (passwordIsCorrect){
+                        JOptionPane.showMessageDialog(null,"Login successfully","Congratulations",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    //Neu khong thong bao password sai
+                    else {
+                        JOptionPane.showMessageDialog(null,"Incorrect password.","Invalid input",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+                //neu khong thong bao den nguoi dung
+                else {
+                    JOptionPane.showMessageDialog(null, "Username does not exist.", "Invalid input", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            //thong bao den nguoi dung
+            else {
+                JOptionPane.showMessageDialog(null,"Username and password can't be blank.","Invalid input",JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_loginConfirmButtonActionPerformed
 
     private void loginUsernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginUsernameInputActionPerformed
@@ -296,6 +402,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void switchToRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchToRegisterButtonActionPerformed
         if (evt.getSource()==switchToRegisterButton) {
+            //Hien thi form dang ky
             loginPanel.setVisible(false);
             registerPanel.setVisible(true);
         }
@@ -303,6 +410,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void switchToLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchToLoginButtonActionPerformed
         if (evt.getSource()==switchToLoginButton) {
+            //Hien thi form dang nhap
             loginPanel.setVisible(true);
             registerPanel.setVisible(false);
         }
