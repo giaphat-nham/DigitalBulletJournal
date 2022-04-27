@@ -377,7 +377,8 @@ public class LoginFrame extends javax.swing.JFrame {
                     
                     //Neu password dung thi dang nhap
                     if (passwordIsCorrect){
-                        JOptionPane.showMessageDialog(null,"Login successfully","Congratulations",JOptionPane.INFORMATION_MESSAGE);
+                        new Application().setVisible(true);
+                        this.setVisible(false);
                     }
                     //Neu khong thong bao password sai
                     else {
@@ -416,6 +417,15 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_switchToLoginButtonActionPerformed
 
+        public static void main(String[] args) {
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new LoginFrame().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton loginConfirmButton;
