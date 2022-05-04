@@ -26,17 +26,124 @@ public class Application extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mainPanel = new javax.swing.JPanel();
+        logoutButton = new javax.swing.JButton();
+        newNoteButton = new javax.swing.JButton();
+        newEventButton = new javax.swing.JButton();
+        noteContentScrollPane = new javax.swing.JScrollPane();
+        noteContentArea = new javax.swing.JTextArea();
+        notesScrollPane = new javax.swing.JScrollPane();
+        specialEventsScrollPane = new javax.swing.JScrollPane();
+        specialEventsLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 204, 204));
+        setResizable(false);
+
+        mainPanel.setBackground(new java.awt.Color(0, 204, 204));
+        mainPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        logoutButton.setBackground(new java.awt.Color(0, 0, 0));
+        logoutButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        logoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        logoutButton.setText("Log out");
+
+        newNoteButton.setBackground(new java.awt.Color(0, 153, 153));
+        newNoteButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        newNoteButton.setForeground(new java.awt.Color(255, 255, 255));
+        newNoteButton.setText("New note");
+        newNoteButton.setFocusPainted(false);
+
+        newEventButton.setBackground(new java.awt.Color(0, 153, 153));
+        newEventButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        newEventButton.setForeground(new java.awt.Color(255, 255, 255));
+        newEventButton.setText("New event");
+        newEventButton.setFocusPainted(false);
+
+        noteContentArea.setBackground(new java.awt.Color(255, 255, 255));
+        noteContentArea.setColumns(20);
+        noteContentArea.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        noteContentArea.setForeground(new java.awt.Color(0, 0, 0));
+        noteContentArea.setRows(5);
+        noteContentScrollPane.setViewportView(noteContentArea);
+
+        notesScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        notesScrollPane.setForeground(new java.awt.Color(255, 255, 255));
+        notesScrollPane.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        specialEventsScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        specialEventsScrollPane.setForeground(new java.awt.Color(255, 255, 255));
+
+        specialEventsLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        specialEventsLabel.setForeground(new java.awt.Color(255, 255, 255));
+        specialEventsLabel.setLabelFor(specialEventsScrollPane);
+        specialEventsLabel.setText("Special Events");
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Notes");
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(notesScrollPane)
+                    .addComponent(specialEventsScrollPane)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(specialEventsLabel)
+                            .addComponent(jLabel1))
+                        .addGap(0, 83, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(noteContentScrollPane)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(newEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newNoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(newNoteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                            .addComponent(newEventButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(notesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(specialEventsLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(specialEventsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(noteContentScrollPane))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -47,5 +154,15 @@ public class Application extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton logoutButton;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JButton newEventButton;
+    private javax.swing.JButton newNoteButton;
+    private javax.swing.JTextArea noteContentArea;
+    private javax.swing.JScrollPane noteContentScrollPane;
+    private javax.swing.JScrollPane notesScrollPane;
+    private javax.swing.JLabel specialEventsLabel;
+    private javax.swing.JScrollPane specialEventsScrollPane;
     // End of variables declaration//GEN-END:variables
 }

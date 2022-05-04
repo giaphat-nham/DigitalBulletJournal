@@ -55,7 +55,9 @@ public class LoginFrame extends javax.swing.JFrame {
         switchToLoginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
 
         loginPanel.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -417,7 +419,7 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_switchToLoginButtonActionPerformed
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
