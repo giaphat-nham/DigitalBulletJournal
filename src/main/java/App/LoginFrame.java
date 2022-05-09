@@ -379,7 +379,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     
                     //Neu password dung thi dang nhap
                     if (passwordIsCorrect){
-                        new Application().setVisible(true);
+                        new Application(username).setVisible(true);
                         this.setVisible(false);
                     }
                     //Neu khong thong bao password sai
